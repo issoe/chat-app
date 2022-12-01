@@ -3,9 +3,10 @@ Config.set('graphics', 'resizable', False)
 
 
 import kivy
+from kivy.app import App
+
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
@@ -13,9 +14,12 @@ from kivy.uix.slider import Slider
 from kivy.lang import Builder
 from kivy.uix.widget import Widget
 from kivy.core.window import Window
+from kivy.lang.builder import Builder
+from kivy.uix.scrollview import ScrollView
+from kivy.properties import ListProperty
+
 
 clients = ["client_1", "client_2", "client_3", "client_4", "client_5", "client_6"]
-
 
 # class Layout(Widget):
 #     def __init__(self, **kwargs):
@@ -43,9 +47,25 @@ clients = ["client_1", "client_2", "client_3", "client_4", "client_5", "client_6
 
 
 class ChatApp(App):
+    clients = []
+    name = []
+    response = []
+    
+    def __init__(self, **kw):
+        super(ChatApp, self).__init__(**kw)
+        self.clients = ["client_1", "client_2", "client_3", "client_4", "client_5", "client_6",
+                        "client_7", "client_8", "client_9", "client_10", "client_11", "client_12",
+                        "client_13", "client_14"]
+        self.response = ["response_1", "response_2", "response_3", "response_4", "response_5"]
+        self.name = "thisname"    
+        
     def build(self):
         Window.size = (600, 700)
         return Builder.load_file('box.kv')
+    
+    
+    
+
     
     def on_press_button_send(self, inputFromUser):
         if not inputFromUser:
