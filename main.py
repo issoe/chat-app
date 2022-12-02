@@ -16,33 +16,42 @@ from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivymd.app import MDApp
+from kivymd.uix.list import OneLineListItem
+# from kivy.properties import ObjectProperty
+
 
 
 class MainPage(Screen):
-    pass
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)    
+
+    def tester(self):
+        pass
 
 class LoginPage(Screen):
-    def __init__(self, **kwargs):  
-        super().__init__(**kwargs)  
-            
-    def validate_user(self):  
-        user = self.ids.username_field  
-        pwd = self.ids.pwd_field  
-        info = self.ids.info  
-  
-        uname = user.text  
-        passwd = pwd.text  
-  
-        if uname == '' or passwd == '':  
-            info.text = '[color=#FF0000]Username and Password are required[/color]' 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def validate_user(self):
+        user = self.ids.username_field
+        pwd = self.ids.pwd_field
+        info = self.ids.info
+
+        uname = user.text
+        passwd = pwd.text
+
+        if uname == '' or passwd == '':
+            info.text = '[color=#FF0000]Username and Password are required[/color]'
             return 0
-        else:  
-            if uname == 'admin' and passwd == 'admin':  
+        else:
+            if uname == 'admin' and passwd == 'admin':
                 info.text = '[color=#00FF00]Logged in successfully!!![/color]'
                 return 1
-            else:  
+            else:
                 info.text = '[color=#FF0000]Invalid Username and Password[/color]'
                 return -1
+
 
 class ChatApp(App):
     clients = []
@@ -61,6 +70,7 @@ class ChatApp(App):
     def build(self):
         Window.size = (600, 700)
         Builder.load_file('layout.kv')
+        
         manageScreen = ScreenManager()
         manageScreen.add_widget(LoginPage(name='login'))
         manageScreen.add_widget(MainPage(name='main'))
@@ -74,10 +84,19 @@ class ChatApp(App):
             print(self.response)
 
     def on_press_button_choose_client(self, client):
-        pass
+        print("Client: " + client)
 
+    def tester(self):
+        pass
+    
     def on_press_button_add_client(self, client):
         pass
+
+    # def on_start(self):
+    #     for i in range(20):
+    #         self.root.ids.container.add_widget(
+    #             OneLineListItem(text=f"Single-line item {i}")
+    #         )
 
 
 if __name__ == '__main__':
