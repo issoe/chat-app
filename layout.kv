@@ -1,0 +1,215 @@
+<MainPage>:    
+    BoxLayout:
+        id: main_win  
+        orientation: "vertical"  
+        spacing: 10  
+        space_x: self.size[0]/3  
+        canvas.before:  
+            Color:  
+                rgba: (128, 0, 0, 1)   
+            Rectangle:  
+                size: self.size  
+                pos: self.pos  
+
+        BoxLayout:
+            padding: 25
+            size_hint: 1, 0.1
+            
+            Button:
+                text: "Welcome ..."
+                size_hint: 1, 1
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        BoxLayout:
+            padding: 25
+            size_hint: 1, 0.65
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.35, 1
+
+                BoxLayout:
+                    size_hint: 1, 0.1
+
+                    Button:
+                        text: "..."
+                        size_hint: 0.7, 1
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}    
+
+                    Button:
+                        text: "Add"
+                        size_hint: 0.3, 1
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}  
+
+                ScrollView:
+                    do_scroll_x: False
+                    do_scroll_y: True
+                    
+                    size_hint: 1, 0.9
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    
+                    Label:
+                        text: "\n".join([client for client in app.clients])
+                        font_size: 50
+                        text_size: self.width, None
+                        size_hint_y: None
+                        height: self.texture_size[1]
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.65, 1
+
+                Button:
+                    text: "You're chatting with ..."
+                    size_hint: 1, 0.1
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        
+                ScrollView:
+                    do_scroll_x: False
+                    do_scroll_y: True
+                    
+                    size_hint: 1, 0.9
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    
+                    Label:
+                        text: "\n".join([client for client in app.response])
+                        font_size: 50
+                        text_size: self.width, None
+                        size_hint_y: None
+                        height: self.texture_size[1]
+
+        BoxLayout:
+            padding: 25
+            size_hint: 1, 0.15
+            
+            TextInput:
+                id: inputFromUser
+                hint_text: 'Enter text ...'
+                multiline: False
+                size_hint: 1, 1
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+                
+                
+        BoxLayout:
+            padding: 25
+            size_hint: 1, 0.1
+
+            Button:
+                text: "Log out"
+                size_hint: 0.25, 1
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}    
+
+            Button:
+                text: "Clear"
+                size_hint: 0.25, 1
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+            Button:
+                text: "Export"
+                size_hint: 0.25, 1
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+            Button:
+                text: "Send"
+                size_hint: 0.25, 1
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}  
+                on_press: app.on_press_button_send(inputFromUser.text)          
+
+  
+<FlatButton@ButtonBehavior+Label>:  
+    font_sixe: 16  
+
+<LoginPage>:  
+    BoxLayout:
+        id: main_win  
+        orientation: "vertical"  
+        spacing: 10  
+        space_x: self.size[0]/3  
+        canvas.before:  
+            Color:  
+                rgba: (255, 255, 255, 255)  
+            Rectangle:  
+                size: self.size  
+                pos: self.pos  
+        
+        BoxLayout:  
+            size_hint: 1, 0.1
+            height: 100  
+            canvas.before:  
+                Color:  
+                    rgba: (128, 0, 0, 1)  
+                Rectangle:  
+                    size: self.size  
+                    pos: self.pos  
+
+            Label:  
+                text: "Login Page"  
+                bold: True  
+                size_hint_x: .9  
+                FlatButton:  
+                    text: "x"  
+                    size_hint_x: .1  
+            
+        BoxLayout:  
+            orientation: 'vertical'  
+            padding: main_win.space_x, 10  
+            spacing: 20  
+            size_hint: 1, 0.9
+            
+            BoxLayout:  
+                orientation: "vertical"  
+                spacing: 10  
+                size_hint: 1, 0.3
+
+                Label:
+                    id: info  
+                    text: ''  
+                    markup: True 
+
+                TextInput:  
+                    id: username_field  
+                    hint_text: "Username"  
+                    multiline: False  
+                    focus: True  
+                    size_hint_x: None
+                    width: 500
+                    size_hint_y: None  
+                    height: 60
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}  
+
+                    
+                TextInput:  
+                    id: pwd_field  
+                    hint_text: "Password"  
+                    multiline: False  
+                    password: True 
+                    size_hint_x: None
+                    width: 500
+                    size_hint_y: None  
+                    height: 60
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}  
+                    
+
+            Label:  
+                id: sp  
+                text: ''  
+                size_hint: 1, 0.1
+
+            Button:  
+                text: "Sign In" 
+                bold: True  
+                background_color: (.06,.06,.06,1)  
+                background_normal: ''  
+                size_hint_x: None
+                width: 350
+                size_hint_y: None  
+                height: 80
+                pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                on_release: 
+                    root.validate_user()
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'main'
+
+            Label:  
+                size_hint: 1, 0.5

@@ -1,87 +1,84 @@
 from kivy.config import Config
 Config.set('graphics', 'resizable', False)
 
-
 import kivy
 from kivy.app import App
-
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
-from kivy.uix.label import Label
-from kivy.uix.textinput import TextInput
-from kivy.uix.slider import Slider
-from kivy.lang import Builder
-from kivy.uix.widget import Widget
-from kivy.core.window import Window
-from kivy.lang.builder import Builder
-from kivy.uix.scrollview import ScrollView
 from kivy.properties import ListProperty
+from kivy.uix.scrollview import ScrollView
+from kivy.lang.builder import Builder
+from kivy.core.window import Window
+from kivy.uix.widget import Widget
+from kivy.lang import Builder
+from kivy.uix.slider import Slider
+from kivy.uix.textinput import TextInput
+from kivy.uix.label import Label
+from kivy.uix.button import Button
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.screenmanager import ScreenManager, Screen
 
 
-clients = ["client_1", "client_2", "client_3", "client_4", "client_5", "client_6"]
+class MainPage(Screen):
+    pass
 
-# class Layout(Widget):
-#     def __init__(self, **kwargs):
-#         super().__init__(**kwargs)
-
-#         # self.cols = 1
-
-#         # lb = Label(text='What your name')
-#         # self.add_widget(lb)
-
-#         # self.inputText = TextInput(multiline=False)
-#         # self.add_widget(self.inputText)
-
-#         # self.btn = Button(text="this button")
-#         # self.btn.bind(on_press=self.on_press_button)
-#         # self.add_widget(self.btn)
-#         layout = BoxLayout(spacing=10)
-#         btn1 = Button(text='Hello', size_hint=(.7, 1))
-#         btn2 = Button(text='World', size_hint=(.3, 1))
-#         layout.add_widget(btn1)
-#         layout.add_widget(btn2)
-        
-#     def on_press_button(self, instance):
-#         print("Text: " + self.inputText.text)
-
+class LoginPage(Screen):
+    def __init__(self, **kwargs):  
+        super().__init__(**kwargs)  
+            
+    def validate_user(self):  
+        user = self.ids.username_field  
+        pwd = self.ids.pwd_field  
+        info = self.ids.info  
+  
+        uname = user.text  
+        passwd = pwd.text  
+  
+        if uname == '' or passwd == '':  
+            info.text = '[color=#FF0000]Username and Password are required[/color]' 
+            return 0
+        else:  
+            if uname == 'admin' and passwd == 'admin':  
+                info.text = '[color=#00FF00]Logged in successfully!!![/color]'
+                return 1
+            else:  
+                info.text = '[color=#FF0000]Invalid Username and Password[/color]'
+                return -1
 
 class ChatApp(App):
     clients = []
     name = []
     response = []
-    
+
     def __init__(self, **kw):
         super(ChatApp, self).__init__(**kw)
         self.clients = ["client_1", "client_2", "client_3", "client_4", "client_5", "client_6",
                         "client_7", "client_8", "client_9", "client_10", "client_11", "client_12",
                         "client_13", "client_14"]
-        self.response = ["response_1", "response_2", "response_3", "response_4", "response_5"]
-        self.name = "thisname"    
-        
+
+        self.response = ["response_1", "response_2",
+                         "response_3", "response_4", "response_5"]
+
     def build(self):
         Window.size = (600, 700)
-        return Builder.load_file('box.kv')
-    
-    
-    
+        Builder.load_file('layout.kv')
+        manageScreen = ScreenManager()
+        manageScreen.add_widget(LoginPage(name='login'))
+        manageScreen.add_widget(MainPage(name='main'))
+        return manageScreen
 
-    
     def on_press_button_send(self, inputFromUser):
         if not inputFromUser:
-            print("Text: ")
+            print("You: ")
         else:
-            print("Text: " + inputFromUser)
+            self.response.append("You: " + inputFromUser)
+            print(self.response)
 
     def on_press_button_choose_client(self, client):
         pass
-        
+
     def on_press_button_add_client(self, client):
         pass
-    
-    def process(self):
-        text = self.root.ids.input.text
-        print(text)
+
 
 if __name__ == '__main__':
     app = ChatApp()
