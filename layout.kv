@@ -49,6 +49,7 @@
                     pos_hint: {"center_x": 0.5, "center_y": 0.5}
                     
                     BoxLayout:
+                        id: container1
                         orientation: "vertical"
                         pos: 0, 0
                         size_hint_y: None  
@@ -80,7 +81,8 @@
                         cols: 1
                         
                         Label:
-                            text: "\n".join([client for client in app.response])
+                            id: newText
+                            text: "\n".join([response for response in app.response])
                             font_size: 50
                             text_size: self.width, None
                             size_hint_y: None
@@ -96,8 +98,6 @@
                 multiline: False
                 size_hint: 1, 1
                 pos_hint: {"center_x": 0.5, "center_y": 0.5}
-
-                
                 
         BoxLayout:
             padding: 25
@@ -122,7 +122,8 @@
                 text: "Send"
                 size_hint: 0.25, 1
                 pos_hint: {"center_x": 0.5, "center_y": 0.5}  
-                on_press: app.on_press_button_send(inputFromUser.text)          
+                on_press: 
+                    app.on_press_button_send(inputFromUser.text)
 
   
 <FlatButton@ButtonBehavior+Label>:  
