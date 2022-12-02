@@ -16,7 +16,6 @@ from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivymd.app import MDApp
 from kivymd.uix.list import OneLineListItem
 # from kivy.properties import ObjectProperty
 from kivy.factory import Factory

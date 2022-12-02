@@ -2,17 +2,9 @@
 
 <MainPage>:    
     BoxLayout:
-        id: main_win  
         orientation: "vertical"  
-        spacing: 10  
-        space_x: self.size[0]/3  
-        canvas.before:  
-            Color:  
-                rgba: (128, 0, 0, 1)   
-            Rectangle:  
-                size: self.size  
-                pos: self.pos  
 
+        
         BoxLayout:
             padding: 25
             size_hint: 1, 0.1
@@ -25,7 +17,6 @@
         BoxLayout:
             padding: 25
             size_hint: 1, 0.65
-
             BoxLayout:
                 orientation: "vertical"
                 size_hint: 0.35, 1
@@ -60,7 +51,7 @@
                             [self.add_widget(Button(text=str(client))) for client in app.clients]
                             # for client in app.clients: self.add_widget(Button(text = str(client), on_press = self.app.tester("text")));
                             # for client in app.clients: self.add_widget(Button(text = str(client), on_press = self.app.tester("text")));
-                            # on_press: app.on_press_button_choose_client("?? ")
+                            on_press: app.on_press_button_choose_client("?? ")
             BoxLayout:
                 orientation: "vertical"
                 size_hint: 0.65, 1
