@@ -67,8 +67,11 @@ class ChatApp(App):
                         "client_7", "client_8", "client_9", "client_10", "client_11", "client_12",
                         "client_13", "client_14"]
 
-        self.response = ["Other: Hello!", "You: Hi!",
-                         "Other: How are you?", "You: I'm fine. Thank you, and you?", "Other: I'm fine <3"]
+        self.response = ["Other: Hello!", 
+                         "You: Hi!",
+                         "Other: How are you?", 
+                         "You: I'm fine. Thank you, and you?", 
+                         "Other: I'm fine <3"]
 
     def build(self):
         Window.size = (600, 700)
@@ -77,7 +80,6 @@ class ChatApp(App):
         manageScreen.add_widget(LoginPage(name='login'))
         manageScreen.add_widget(MainPage(name='main'))
         
-        Clock.schedule_interval(self.update, 1)
         return manageScreen
 
     def on_press_button_send(self, inputFromUser):
@@ -89,42 +91,10 @@ class ChatApp(App):
 
     def on_press_button_choose_client(self, client):
         print("Client: " + client)
-
-    def tester(self):
-        pass
-    
-    def createGrid(self, *args):
-        pass
-
-    def myButtPress(self, butt):
-        print(butt.text)
-        self.popup.dismiss()
     
     def on_press_button_add_client(self, client):
         pass
     
-    def update(self, *args):
-        pass
-    #     self.name.text = str(self.current_i)
-    #     self.current_i += 1
-    #     if self.current_i >= 50:
-    #         Clock.unschedule(self.update)
-    
-    def refresh_callback(self, *args):
-        """A method that updates the state of your application
-        while the spinner remains on the screen."""
-
-        def refresh_callback(interval):
-            self.root.ids.box.clear_widgets()
-            if self.x == 0:
-                self.x, self.y = 15, 30
-            else:
-                self.x, self.y = 0, 15
-            self.set_list()
-            self.root.ids.refresh_layout.refresh_done()
-            self.tick = 0
-
-        Clock.schedule_once(refresh_callback, 1)
             
 if __name__ == '__main__':
     app = ChatApp()

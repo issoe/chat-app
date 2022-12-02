@@ -3,14 +3,26 @@
 <MainPage>:    
     BoxLayout:
         orientation: "vertical"  
-
+        canvas.before:  
+            Color:  
+                rgba: (255, 255, 255, 255)  
+            Rectangle:  
+                size: self.size  
+                pos: self.pos  
 
         BoxLayout:
             padding: 25
             size_hint: 1, 0.1
             
-            Button:
+            Label:
+                canvas.before:
+                    Color:
+                        rgba: (128, 0, 0, 1) 
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size              
                 text: "Welcome ..."
+                
                 size_hint: 1, 1
                 pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
@@ -23,10 +35,13 @@
 
                 BoxLayout:
                     size_hint: 1, 0.1
-                    Button:
-                        text: "..."
+
+                    TextInput:                  
+                        id: newClientName
+                        hint_text: 'New client ... '
+                        multiline: False
                         size_hint: 0.7, 1
-                        pos_hint: {"center_x": 0.5, "center_y": 0.5}    
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
                     Button:
                         text: "Add"
@@ -56,8 +71,14 @@
                 orientation: "vertical"
                 size_hint: 0.65, 1
 
-                Button:
-                    text: "You're chatting with ..."
+                Label:
+                    canvas.before:
+                        Color:
+                            rgba: .06, .06, .06, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    text: "You're chatting with client 1"
                     size_hint: 1, 0.1
                     pos_hint: {"center_x": 0.5, "center_y": 0.5}
         
@@ -74,6 +95,7 @@
                         Label:
                             id: newText
                             text: "\n".join([response for response in app.response])
+                            color: 1,0,1,1
                             font_size: 35
                             text_size: self.width, None
                             size_hint_y: None
@@ -208,6 +230,7 @@
                 pos_hint: {"center_x": 0.5, "center_y": 0.5} 
                 on_release: 
                     root.validate_user()
+                    # result = 1  
                     root.manager.transition.direction = 'left'
                     root.manager.current = 'main'
 
