@@ -1,7 +1,0 @@
-teal = '#2dd4bf'
-teal_700 = '#0f766e'
-zinc_900 = '#18181b'
-zinc_800 = '#27272a'
-amber_200 = '#fde68a'
-indigo_600 = '#4f46e5'
-pink_600 = '#db2777'
