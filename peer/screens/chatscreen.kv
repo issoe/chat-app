@@ -1,0 +1,152 @@
+#:kivy 2.0.1
+#:import Button kivy.uix.button.Button
+#:import utils kivy.utils
+
+<ChatScreen>:    
+
+    BoxLayout:
+        id: wrapper
+        orientation: "vertical"  
+        padding: [20, 20]
+        canvas.before:  
+            Color:
+                rgb: utils.get_color_from_hex('#18181b')    #zinc-500
+            Rectangle:  
+                size: self.size  
+                pos: self.pos
+        BoxLayout:
+            size_hint: 1, 0.1
+            orientation: "horizontal"
+            Label:
+                id: welcome
+                text: "Welcome ..."
+                text_size: self.size
+                font_size: 20                
+                size_hint: 0.5, 1
+                halign: "left"
+                valign: "center"
+                markup: True 
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint_x: None
+                size: 140, 0
+                padding: 0, 10
+                Button:
+                    text: 'Friend requests'
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex('#db2777')
+                    on_release:
+                        root.button_open_frequests_modal()
+        BoxLayout:
+            id: chat_wrapper
+            size_hint: 1, 0.9
+
+            BoxLayout:
+                id: friend_manager
+                orientation: "vertical"
+                size_hint: 0.2, 1
+
+                ScrollView:
+                    id: friends_dropdown
+                    do_scroll_x: False
+                    do_scroll_y: True
+                    size_hint: 1, 0.8
+
+                    canvas.before:
+                        Color: 
+                            rgba: utils.get_color_from_hex('#27272a')
+                        RoundedRectangle:
+                            radius: 15,
+                            pos: self.pos
+                            size: self.size
+                
+                    GridLayout:
+                        id: friend_list
+                        cols: 1
+                        pos: 0, 0
+                        size_hint_y: None
+                        height: 1000
+                        spacing: 10
+                        padding: 15, 15
+                        height: self.minimum_height
+
+            BoxLayout:
+                id: chat_wrapper
+                orientation: "vertical"
+                size_hint: 0.8, 1
+                padding: 20, 0, 0, 0
+
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint: 1, 0.1
+
+                    Label:
+                        id: chat_header 
+                        text: '[color=2dd4bf]Choose a friend to chat[/color]'
+                        size_hint: 0.8, 1
+                        font_size: 20
+                        halign: 'left'
+                        valign: 'center'
+                        text_size: self.size
+                        markup: True
+
+                    BoxLayout:
+                        id: start_button_wrapper
+                        orientation: 'horizontal'
+                        padding: 0, 10
+                        size_hint_x: None
+                        size: 140, 0
+
+                        Button:
+                            id: start_button
+                            text: 'Start Chat'
+                            font_size: 14
+                            background_normal: ''
+                            background_color: utils.get_color_from_hex('#db2777')
+                            on_press:
+                                root.button_start_chat()
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint: 1, 0.9
+                    spacing: 20
+
+                    ScrollView:
+                        id: chat_section
+                        do_scroll_x: False
+                        do_scroll_y: True
+                        size_hint: 1, 0.8
+
+                        canvas.before:
+                            Color: 
+                                rgba: utils.get_color_from_hex('#27272a')
+                            RoundedRectangle:
+                                radius: 15,
+                                pos: self.pos
+                                size: self.size
+
+                        BoxLayout:
+                            orientation: 'vertical'
+                            id: chat
+                            pos: 0, 0
+                            size_hint_x: 1
+                            size_hint_y: None
+                            height: self.minimum_height
+                            spacing: 10
+                            padding: 20, 20
+                            
+                    TextInput:
+                        id: chat_input
+                        hint_text: 'Enter you message'
+                        multiline: False
+                        size_hint: 1, 0.1
+                        padding:  10 , (self.height - self.font_size)/2-2
+                        background: utils.get_color_from_hex('#27272a')
+                        border: 30, 30, 30, 30
+                        on_text_validate:
+                            root.input_send_txt(self.text)
+
+                
+        BoxLayout:
+            padding: 25
+            size_hint: 1, 0.1

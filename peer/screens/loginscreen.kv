@@ -1,0 +1,105 @@
+#:kivy 2.0.1
+#:import Button kivy.uix.button.Button
+#:import utils kivy.utils
+
+<FlatButton@ButtonBehavior+Label>:  
+
+<LoginScreen>: 
+    BoxLayout:
+        id: login_wrapper  
+        orientation: "vertical"  
+        spacing: 10  
+        space_x: self.size[0]/3  
+        canvas.before:  
+            Color:
+                rgb: utils.get_color_from_hex('#1c1917')    #zinc-800
+            Rectangle:  
+                size: self.size  
+                pos: self.pos  
+        
+        BoxLayout:  
+            size_hint: 1, 0.2
+            padding: 0, 60, 0, 0
+            height: 100  
+            canvas.before:  
+                Rectangle:  
+                    size: self.size  
+                    pos: self.pos  
+
+            Label:  
+                text: "Login Page"  
+                bold: True  
+                font_size: 20
+                size_hint_x: .9  
+                FlatButton:  
+                    size_hint_x: .1  
+            
+        BoxLayout:  
+            orientation: 'vertical'  
+            padding: 0, 50, 0, 0
+            spacing: 20  
+            size_hint: 1, 0.8
+            
+            BoxLayout:  
+                orientation: "vertical"  
+                spacing: 10  
+                size_hint: 1, 0.3
+
+                TextInput:  
+                    id: username  
+                    border: 30, 30, 30, 30
+                    hint_text: "Username"  
+                    multiline: False  
+                    focus: True  
+                    size_hint_x: None
+                    width: 500
+                    size_hint_y: None  
+                    padding:  10 , (self.height - self.font_size)/2-2
+                    height: 60
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}  
+                    on_text_validate: 
+                        root.login(username.text, password.text, username)
+                    
+                TextInput:  
+                    id: password 
+                    border: 30, 30, 30, 30
+                    hint_text: "Password"  
+                    multiline: False  
+                    password: True 
+                    size_hint_x: None
+                    width: 500
+                    size_hint_y: None  
+                    height: 60
+                    padding:  10 , (self.height - self.font_size)/2-2
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    on_text_validate: 
+                        root.login(username.text, password.text, password)
+                        
+                Label:
+                    id: error_msg  
+                    text: ''  
+                    font_size: 15
+                    markup: True 
+                    
+            Label:  
+                id: sp  
+                text: ''  
+                size_hint: 1, 0.1
+
+            Button: 
+                id: btn 
+                text: "Login" 
+                font_size: 20
+                bold: True  
+                background_color: utils.get_color_from_hex('#2dd4bf')
+                background_normal: ''  
+                size_hint_x: None
+                width: 350
+                size_hint_y: None  
+                height: 80
+                pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                on_release: 
+                    root.login(username.text, password.text)
+
+            Label:  
+                size_hint: 1, 0.5
