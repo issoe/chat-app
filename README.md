@@ -14,10 +14,10 @@
   CALL signup('__username__', '__password__');
 ```
 5. center_server.py
-```python
+```bash
   python center_server/center_server.py
 ```
 5. run application
-```python
+```bash
   python peer/main.py
 ```
