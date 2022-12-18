@@ -25,6 +25,40 @@ class LoginScreen(Screen):
             self.ids.btn.text = 'Loading'
         else:
             self.ids.btn.text = 'Login'
+    
+    def register(self, username, password):
+
+        if self.loading.value == True:
+            return 
+
+        self.loading.value = True
+        error_msg = self.ids.error_msg
+        error_msg.text = ''
+        
+        if not username or not password:
+            error_msg.text = '[color=#f87171]Input you credentials![/color]'
+            self.loading.value = False
+            return
+
+        def request_signup():
+            payload = {
+                'username': username,
+                'password': password,
+            }
+            response = request.post(
+                'http://127.0.0.1:5000/register',
+                data=payload,
+            )
+            self.on_signup_response(username, password, response)
+        threading.Thread(target=request_signup).start()
+    
+    def on_signup_response(self, username, password, resp):
+        if resp.status_code >= 400:
+            self.ids.error_msg.text = '[color=#f87171]Try use another username![/color]'
+            self.loading.value = False
+            return
+        self.ids.error_msg.text = '[color=#87171]Register account successfully![/color]'
+        self.loading.value = False
 
     def login(self, username, password, widget=None):
 

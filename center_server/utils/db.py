@@ -7,7 +7,20 @@ def connect_db():
         host = '127.0.0.1',
         database = 'chatapp_new'
     )
-    
+
+def signup(username, password):
+    try:
+        connection = connect_db()
+        cursor = connection.cursor(dictionary=True)
+        cursor.callproc('signup', (None, username, password))
+        connection.commit()
+        connection.close()
+    except mysql_connector.Error as e:
+        print(e)
+        connection.close()
+        raise mysql_connector.Error('Your username maybe used be someone else')
+    connection.close()
+
 def get_user(uid):
     try:
         connection = connect_db()

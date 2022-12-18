@@ -96,10 +96,24 @@
                 size_hint_x: None
                 width: 350
                 size_hint_y: None  
-                height: 80
+                height: 60
                 pos_hint: {"center_x": 0.5, "center_y": 0.5} 
                 on_release: 
                     root.login(username.text, password.text)
+            Button: 
+                id: btn 
+                text: "Signup" 
+                font_size: 20
+                bold: True  
+                background_color: utils.get_color_from_hex('#2dd4bf')
+                background_normal: ''  
+                size_hint_x: None
+                width: 350
+                size_hint_y: None  
+                height: 60
+                pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                on_release: 
+                    root.register(username.text, password.text)
 
             Label:  
                 size_hint: 1, 0.5

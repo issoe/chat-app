@@ -14,6 +14,22 @@ from utils.events import Event as FEvent
 app = Flask(__name__)
 user_manager = None
 
+@app.route('/register', methods=['POST'])
+def register():
+    try:
+        if request.is_json:
+            username = request.json['username']
+            password = request.json['password']
+        else:
+            username = request.form['username']
+            password = request.form['password']
+        db.signup(username, password)
+        return {'status': 'ok'}
+    except KeyError as e:
+        return {'status': 'error', 'detail': f'{e} is required'}, 400
+    except mysql_connector.Error as e: 
+        return {'status': 'error', 'detail': str(e)}, 405
+
 @app.route('/login', methods=['POST'])
 def login():
     try:

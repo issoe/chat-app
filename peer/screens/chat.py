@@ -143,6 +143,11 @@ class ChatScreen(Screen, FriendAPI):
         """
         if not self.chat_manager.current_id == fid:
             return
+        
+        if str(fid) in self.chat_manager.connections:
+            self.ids.start_button.text='Connected'
+        else: 
+            self.ids.start_button.text='Start chat'
 
         friend = self.friends_chat[fid]
         self.ids.chat_header.text = f"[color={pink_600}]{friend['username']}[/color]"
@@ -150,7 +155,7 @@ class ChatScreen(Screen, FriendAPI):
 
         chat_container = self.ids.chat
         chat_container.clear_widgets()
-        
+
         for chat in chats:
             sender, msg = chat
             label = ChatBubble(text=msg, own=(sender=='self'))
@@ -206,9 +211,14 @@ class ChatScreen(Screen, FriendAPI):
     @mainthread
     def on_friend_offline(self, fid):
         print('offline', fid)
+        
+        if fid == self.chat_manager.current_id:
+            self.ids.start_button.text='Retry'
+
         for choice in self.ids.friend_list.children:
             if str(choice.fid) == str(fid):
-                choice.background_color = get_color_from_hex(zinc_800) 
+                choice.background_color = get_color_from_hex(zinc_800)
+        
     @mainthread
     def on_friend_request(self, fid, fusername):
         print(fusername)
@@ -307,5 +317,5 @@ class ChatScreen(Screen, FriendAPI):
         self.ids.chat.add_widget(label)
 
     @mainthread
-    def on_friend_aborted(self, fid):
+    def on_friend_aborted(self, fid): 
         pass
